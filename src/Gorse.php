@@ -1,69 +1,7 @@
 <?php
-
+namespace Gorse;
 use GuzzleHttp\Exception\GuzzleException;
-
-class User implements JsonSerializable
-{
-    public string $userId;
-    public array $labels;
-
-    public function __construct(string $userId, array $labels)
-    {
-        $this->userId = $userId;
-        $this->labels = $labels;
-    }
-
-    public function jsonSerialize(): array
-    {
-        return [
-            'UserId' => $this->userId,
-            'Labels' => $this->labels,
-        ];
-    }
-
-    public static function fromJSON($json): User
-    {
-        return new User($json->UserId, $json->Labels);
-    }
-}
-
-class Feedback implements JsonSerializable
-{
-    public string $feedback_type;
-    public string $user_id;
-    public string $item_id;
-    public string $timestamp;
-
-    public function __construct(string $feedback_type, string $user_id, string $item_id, string $timestamp)
-    {
-        $this->feedback_type = $feedback_type;
-        $this->user_id = $user_id;
-        $this->item_id = $item_id;
-        $this->timestamp = $timestamp;
-    }
-
-    public function jsonSerialize(): array
-    {
-        return [
-            'FeedbackType' => $this->feedback_type,
-            'UserId' => $this->user_id,
-            'ItemId' => $this->item_id,
-            'Timestamp' => $this->timestamp,
-        ];
-    }
-}
-
-class RowAffected
-{
-    public int $rowAffected;
-
-    public static function fromJSON($json): RowAffected
-    {
-        $rowAffected = new RowAffected();
-        $rowAffected->rowAffected = $json->RowAffected;
-        return $rowAffected;
-    }
-}
+use  GuzzleHttp;
 
 final class Gorse
 {
