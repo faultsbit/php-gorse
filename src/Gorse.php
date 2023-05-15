@@ -1,5 +1,7 @@
 <?php
+
 namespace Gorse;
+
 use GuzzleHttp\Exception\GuzzleException;
 use  GuzzleHttp;
 
@@ -11,7 +13,7 @@ final class Gorse
     function __construct(string $endpoint, string $apiKey)
     {
         $this->endpoint = $endpoint;
-        $this->apiKey = $apiKey;
+        $this->apiKey   = $apiKey;
     }
 
     /**
@@ -20,6 +22,16 @@ final class Gorse
     function insertUser(User $user): RowAffected
     {
         return RowAffected::fromJSON($this->request('POST', '/api/user/', $user));
+    }
+
+    /**
+     * @param User $user
+     * @return RowAffected
+     * @throws GuzzleException
+     */
+    function updateUser(User $user): RowAffected
+    {
+        return RowAffected::fromJSON($this->request('PATCH', "/api/user/{$user->userId}", $user->labels));
     }
 
     /**
@@ -59,7 +71,7 @@ final class Gorse
      */
     private function request(string $method, string $uri, $body)
     {
-        $client = new GuzzleHttp\Client(['base_uri' => $this->endpoint]);
+        $client  = new GuzzleHttp\Client(['base_uri' => $this->endpoint]);
         $options = [GuzzleHttp\RequestOptions::HEADERS => ['X-API-Key' => $this->apiKey]];
         if ($body != null) {
             $options[GuzzleHttp\RequestOptions::JSON] = $body;
