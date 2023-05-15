@@ -31,7 +31,7 @@ final class Gorse
      */
     function updateUser(User $user): RowAffected
     {
-        return RowAffected::fromJSON($this->request('PATCH', "/api/user/{$user->userId}", $user->labels));
+        return RowAffected::fromJSON($this->request('PATCH', "/api/user/{$user->userId}", ['Labels'=>$user->labels]));
     }
 
     /**
