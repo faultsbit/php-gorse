@@ -60,6 +60,15 @@ final class Gorse
     }
 
     /**
+     * @param Item $item
+     * @return RowAffected
+     * @throws GuzzleException
+     */
+    function updateItem(Item $item):RowAffected{
+        return RowAffected::fromJSON($this->request('PATCH',"/api/item/{$item->itemId}",$item));
+    }
+
+    /**
      * @throws GuzzleException
      */
     function insertFeedback(array $feedback): RowAffected
