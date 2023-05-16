@@ -51,6 +51,15 @@ final class Gorse
     }
 
     /**
+     * @param Item $item
+     * @return RowAffected
+     * @throws GuzzleException
+     */
+    function insertItem(Item $item):RowAffected{
+        return RowAffected::fromJSON($this->request('POST','/api/item',$item));
+    }
+
+    /**
      * @throws GuzzleException
      */
     function insertFeedback(array $feedback): RowAffected
