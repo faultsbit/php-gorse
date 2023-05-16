@@ -16,6 +16,11 @@ class RecommendQuery implements JsonSerializable
     public function __construct($userId, $category = null, $offset = 0, $n = 10, $writeBackType = '', $writeBackDelay = '')
     {
         $this->userId = $userId;
+        $this->category = $category;
+        $this->n = $n;
+        $this->offset = $offset;
+        $this->writeBackType = $writeBackType;
+        $this->writeBackDelay = $writeBackDelay;
     }
 
     public function jsonSerialize(): array
