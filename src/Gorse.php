@@ -4,6 +4,7 @@ namespace Gorse;
 
 use GuzzleHttp\Exception\GuzzleException;
 use  GuzzleHttp;
+use Illuminate\Support\Str;
 
 final class Gorse
 {
@@ -86,7 +87,7 @@ final class Gorse
             $uri="{$uri}/{$query->category}";
         }
 
-        return $this->request('GET', $uri, $query);
+        return $this->request('GET', $uri, $query->jsonSerialize());
     }
 
     /**
@@ -97,7 +98,11 @@ final class Gorse
         $client  = new GuzzleHttp\Client(['base_uri' => $this->endpoint]);
         $options = [GuzzleHttp\RequestOptions::HEADERS => ['X-API-Key' => $this->apiKey]];
         if ($body != null) {
-            $options[GuzzleHttp\RequestOptions::JSON] = $body;
+            if (strtoupper($method) != 'GET'){
+                $options[GuzzleHttp\RequestOptions::JSON] = $body;
+            }else{
+                $options[GuzzleHttp\RequestOptions::QUERY] = $body;
+            }
         }
         $response = $client->request($method, $uri, $options);
         return json_decode($response->getBody());
