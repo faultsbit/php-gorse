@@ -79,9 +79,14 @@ final class Gorse
     /**
      * @throws GuzzleException
      */
-    function getRecommend(string $user_id): array
+    function getRecommend(RecommendQuery $query): array
     {
-        return $this->request('GET', '/api/recommend/' . $user_id, null);
+        $uri = "/api/recommend/{$query->userId}";
+        if ($query->category){
+            $uri="{$uri}/{$query->category}";
+        }
+
+        return $this->request('GET', $uri, $query);
     }
 
     /**
