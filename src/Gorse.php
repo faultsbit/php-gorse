@@ -87,7 +87,7 @@ final class Gorse
             $uri="{$uri}/{$query->category}";
         }
 
-        return $this->request('GET', $uri, $query->jsonSerialize());
+        return $this->request('GET', $uri, $query->jsonSerialize())??[];
     }
 
     /**
