@@ -70,6 +70,15 @@ final class Gorse
     }
 
     /**
+     * @param string $item_id
+     * @return RowAffected
+     * @throws GuzzleException
+     */
+    function deleteItem(string  $item_id):RowAffected{
+        return RowAffected::fromJSON($this->request('DELETE',' /api/item/'.$item_id,null));
+    }
+
+    /**
      * @throws GuzzleException
      */
     function insertFeedback(array $feedback): RowAffected
