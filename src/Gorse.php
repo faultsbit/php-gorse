@@ -75,7 +75,7 @@ final class Gorse
      * @throws GuzzleException
      */
     function deleteItem(string  $item_id):RowAffected{
-        return RowAffected::fromJSON($this->request('DELETE',' /api/item/'.$item_id,null));
+        return RowAffected::fromJSON($this->request('DELETE',"/api/item/{$item_id}",null));
     }
 
     /**
